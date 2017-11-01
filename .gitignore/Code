@@ -1,0 +1,53 @@
+			XmlDataDocument xmldoc = new XmlDataDocument();
+      XmlNodeList xmlnode;
+      XmlNodeList xmlnode1;
+			//Find the XML Directory on RunTime
+            string Databasetarget = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\DatabaseBackupXML.xml";
+            FileStream fs = new FileStream(Databasetarget, FileMode.Open, FileAccess.Read);
+            xmldoc.Load(fs);
+            xmlnode = xmldoc.GetElementsByTagName("DatabaseCredentials");
+            xmlnode1 = xmldoc.GetElementsByTagName("DatabaseNameXML");
+            int xnode = xmlnode.Count;
+            int dbname = xmlnode1.Count;
+            //Console.WriteLine("No of Nodes"+xnote);
+            for (int i = 0; i <= (xnode - 1); i++)
+            {
+                serverName = xmlnode[i].ChildNodes.Item(0).InnerText.Trim();
+                userId = xmlnode[i].ChildNodes.Item(1).InnerText.Trim();
+                password = xmlnode[i].ChildNodes.Item(2).InnerText.Trim();
+
+                Program program = new Program();
+                List<String> databaseName = Program.GetDatabaseList();
+                //Console.WriteLine(databaseName.Count);
+                for (int j = 0; j < databaseName.Count; j++)
+                {
+                    for (int k = 0; k <= (dbname - 1); k++)
+                    {
+                        
+                        String nameDB=xmlnode1[k].ChildNodes.Item(0).InnerText.Trim();
+                        
+                        if (databaseName[j] == nameDB)
+                        {
+                            try
+                            {
+
+                                Console.WriteLine("Database Name:" + databaseName[j]);
+                                program.GenerateScript(databaseName[j], serverName, userId, password);
+
+
+                            }
+                            catch (Exception e)
+                            {
+                                //System.Threading.Thread.Sleep(5000);
+                                Console.WriteLine("Error in Passing Parameters: " + databaseName[j]);
+                                // File.WriteAllText("D:\\BakupErrorFile.txt", e.ToString());
+
+                            }
+                        }
+                        
+                      //  else
+                      //      Console.WriteLine("No Database Found in: " + serverName);
+                       
+                    }
+
+                }
