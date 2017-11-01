@@ -1,0 +1,16 @@
+<Table>
+<DatabaseCredentials>
+<serverName>Servername</serverName>
+<userId>id</userId>
+<password>pwd</password>
+<DatabaseNameXML>DB Name</DatabaseNameXML>
+<DatabaseNameXML>DB Name</DatabaseNameXML>
+</DatabaseCredentials>
+<DatabaseCredentials>
+<serverName>Servername</serverName>
+<userId>id</userId>
+<password>pwd</password>
+<DatabaseNameXML>DB Name</DatabaseNameXML>
+<DatabaseNameXML>Db Name</DatabaseNameXML>
+</DatabaseCredentials>
+</Table>
